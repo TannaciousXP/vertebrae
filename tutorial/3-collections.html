@@ -57,7 +57,7 @@ var CommentView = Backbone.View.extend({
         '</br>',
       '</div>'
     ].join('');
-
+    // console.log(this.$el.html(html));
     return this.$el.html(html);
     /* Rendering raw model attributes like this could expose us
      * to XSS attacks. In a real application, make sure to use
@@ -111,6 +111,11 @@ var CommentsView = Backbone.View.extend({
      * Remember, we have the underscore functions: */
     this.$el.find('ul').append(this.collection.map(function(comment) {
       // YOUR CODE HERE
+      const commentV = new CommentView({model: comment});
+      let $li = $('<li></li>');
+      $li.append(commentV.render());
+      // console.log($li);
+      return $li;
     }));
 
     return this.$el;
@@ -134,7 +139,7 @@ var comments = new Comments(commentList);
 var commentsView = new CommentsView({ collection: comments });
 
 // Append it to the page (uncomment this when you are ready):
-// $('body').append(commentsView.render());
+$('body').append(commentsView.render());
     </script>
   </body>
 </html>
